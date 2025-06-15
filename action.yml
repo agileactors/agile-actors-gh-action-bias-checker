@@ -1,0 +1,34 @@
+name: "Gender Bias Scanner"
+description: |
+  Scans your codebase for gender-biased terms (e.g. "fireman", "chairman", etc.) and fails if any are found.
+author: "ThanosAA"
+
+# Use Docker container to run Python
+runs:
+  using: "docker"
+  image: "Dockerfile"
+
+inputs:
+  additional_terms:
+    description: |
+      An optional JSON‐encoded array of extra biased terms to scan for (e.g. '["hostess","stewardess"]'). 
+      These will be merged with the built-in list from terms.json.
+    required: false
+    default: "[]"
+  scan_paths:
+    description: |
+      A semicolon-separated list of glob patterns to control which files to scan. 
+      Defaults to '**/*.{py,js,ts,jsx,tsx,java,go,rb,cs,cpp,c,h,html,css,md}'.
+      Example: 'src/**/*.py;docs/**/*.md'
+    required: false
+    default: "**/*.{py,js,ts,jsx,tsx,java,go,rb,cs,cpp,c,h,html,css,md}"
+
+outputs:
+  found:
+    description: "Set to 'true' if any biased terms were detected; 'false' otherwise."
+  report:
+    description: "A multi-line report listing each match (filepath:line:matched_term)."
+
+branding:
+  color: "blue"
+  icon: "search"
