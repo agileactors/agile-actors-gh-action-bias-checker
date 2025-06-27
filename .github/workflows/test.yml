@@ -32,7 +32,6 @@ jobs:
         run: |
           python -m nltk.downloader wordnet omw-1.4
 
-
       - name: ✅ Run unit tests
         run: |
           export PYTHONPATH=.

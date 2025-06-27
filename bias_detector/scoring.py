@@ -12,6 +12,10 @@ def cosine(u, v):
     :param v: Second vector.
     :return: Cosine similarity value.
     """
+    u_norm = np.linalg.norm(u)
+    v_norm = np.linalg.norm(v)
+    if u_norm == 0 or v_norm == 0:
+        return 0.0
     return np.dot(u, v) / (np.linalg.norm(u) * np.linalg.norm(v))
 
 

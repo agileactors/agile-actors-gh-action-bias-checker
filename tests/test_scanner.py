@@ -41,7 +41,7 @@ class TestScanner(unittest.TestCase):
             cutoff=0.1
         )
 
-        self.assertTrue(any("king" in line or "queen" in line for line in flagged))
+        self.assertTrue(any(word in line for word in ["king", "queen"] for line in flagged))
         self.assertFalse(any("nurse" in line for line in flagged))  # nurse is excluded
 
     def test_get_files_from_patterns_returns_files(self):

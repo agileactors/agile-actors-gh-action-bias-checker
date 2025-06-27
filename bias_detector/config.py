@@ -30,5 +30,11 @@ def load_exclude_terms(path="config/terms_to_ignore.json"):
     :param path: str: Path to the JSON file containing terms to ignore.
     :return: set: A set of terms to ignore during bias detection.
     """
+    if not os.path.exists(path):
+        return set()
     with open(path, "r") as f:
-        return set(json.load(f))
+        try:
+            return set(json.load(f))
+        except json.JSONDecodeError:
+            print(f"⚠️ Warning: Failed to decode JSON from {path}. Returning empty set.")
+            return set()
