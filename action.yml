@@ -2,7 +2,6 @@ name: "Gender Bias Scanner"
 description: |
   Scans your codebase for gender-biased terms (e.g. "fireman", "chairman", etc.) and fails if any are found.
 
-# Use Docker container to run Python
 runs:
   using: "docker"
   image: "Dockerfile"
