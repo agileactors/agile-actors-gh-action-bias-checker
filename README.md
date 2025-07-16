@@ -15,17 +15,8 @@ On the other hand, if no biased terms are found, the Action will pass with a suc
 > ✅ No gender-biased terms detected.
 
 ## Inputs
-
-- `fail_on_biased_terms`: (optional) If set to `true`, the Action will fail if any biased terms are found. Defaults to
-  `true`.
-- `additional_terms`: (optional) A JSON-encoded array of extra words to check.
-  Example:
-```json
-[
-  "salesman",
-  "workman"
-]
-```
+- `bias_cutoff` (optional)
+A float between 0.0 and 1.0 representing the minimum confidence threshold for flagging a term.
 - `scan_paths` (optional)
 A semicolon-separated list of file globs to scan.
 
