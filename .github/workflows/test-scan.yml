@@ -1,0 +1,20 @@
+name: Test Gender Bias Scan
+
+on:
+  pull_request:
+    paths:
+      - 'demo-proj/**'
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    name: Run Gender Bias Scanner
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Run Gender Bias Scanner
+        uses: ./
+        with:
+          scan_paths: 'demo-proj/**/*.py'
