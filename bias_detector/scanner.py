@@ -37,7 +37,7 @@ def scan_files(files, exclude_terms, embedding, gender_direction, cutoff):
                         nw for word in words for nw in cached_normalize_word(word)
                     ]
                     for word in normalized_words:
-                        if not word or word in exclude_terms:
+                        if not word or len(word)<=2 or word in exclude_terms:
                             continue
                         score = bias_score(word, embedding, gender_direction)
                         if score > cutoff:

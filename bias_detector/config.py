@@ -24,17 +24,33 @@ def get_cutoff():
     return float(os.environ.get("INPUT_BIAS_CUTOFF", 0.1))
 
 
-def load_exclude_terms(path="config/terms_to_ignore.json"):
+def load_exclude_terms(path=None):
     """
     Load a set of terms to ignore from a JSON file.
-    :param path: str: Path to the JSON file containing terms to ignore.
+    If no path is provided, returns an empty set.
+
+    :param path: str | None: Path to the JSON file containing terms to ignore.
+                 Can be set via INPUT_EXCLUDE_TERMS env var.
     :return: set: A set of terms to ignore during bias detection.
     """
-    if not os.path.exists(path):
+    if path is None:
+        path = os.environ.get("INPUT_EXCLUDE_TERMS")
+
+    if not path:
         return set()
-    with open(path, "r") as f:
-        try:
-            return set(json.load(f))
-        except json.JSONDecodeError:
-            print(f"⚠️ Warning: Failed to decode JSON from {path}. Returning empty set.")
-            return set()
+
+    if not os.path.exists(path):
+        print(f"⚠️ Warning: Exclude terms file '{path}' not found. Ignoring.")
+        return set()
+
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            if isinstance(data, list):
+                return set(data)
+            else:
+                print(f"⚠️ Warning: Expected a list in {path}. Got {type(data).__name__}. Ignoring.")
+                return set()
+    except (json.JSONDecodeError, OSError) as e:
+        print(f"⚠️ Warning: Failed to load exclude terms from {path}: {e}")
+        return set()
