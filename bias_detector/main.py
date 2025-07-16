@@ -7,10 +7,9 @@ from bias_detector.scanner import get_files_from_patterns, scan_files
 
 def extract_score(item):
     try:
-        # Extract the number after 'bias score: '
         return float(item.split('bias score:')[1].rstrip(')').strip())
     except (IndexError, ValueError):
-        return 0.0  # fallback if format is off
+        return 0.0
 
 def main():
     print("🔍 Loading GloVe embeddings...")
