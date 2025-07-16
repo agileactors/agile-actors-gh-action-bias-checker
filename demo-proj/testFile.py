@@ -10,3 +10,4 @@ def baz():
 hello = "hello"
 def world():
     return "world"
+fireman="The fireman saved the day"
